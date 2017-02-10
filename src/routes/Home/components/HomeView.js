@@ -42,7 +42,7 @@ class HomeView extends Component {
           <div className="row" id="matchAndLeaders">
             <MatchHistory />
             <Leaderboard leaderboard={this.state.leaderboard}/>
-            <Achievements />
+            {/*<Achievements />*/}
           </div>
             {/* <div style={{paddingTop: "10px"}}>
               <MainLobbyContainer />

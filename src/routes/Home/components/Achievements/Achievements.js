@@ -15,4 +15,3 @@ export const Achievements = () => (
 
 export default Achievements;
 
-
