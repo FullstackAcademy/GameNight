@@ -15,11 +15,13 @@ import GameFinishedPage from './GameFinishedPage/components/GameFinishedPage'
 import Login from '../components/Login/Login';
 import Signup from './Signup/components/Signup';
 import Profile from './Profile/components/Profile';
+import ReportABug from './ReportABug/components/ReportABug';
 
 import { fetchClients } from '../store/client'
 import { setRoomId } from '../store/gamelobby';
 import { setUser } from '../store/user';
 import { fetchMatches } from '../store/match';
+import { fetchProfile } from '../store/profile';
 
 function onJoinEnter(nextRouterState){
   //console.log(nextRouterState.params.invId);
@@ -51,12 +53,17 @@ function onGameLobbyEnter(nextRouterState, store) {
   })
 }
 
+function onProfileEnter(nextRouterState, store) {
+  const username = nextRouterState.params.username;
+  store.dispatch(fetchProfile(username));
+}
+
 export const createRoutes = (store) => (
   <Route path="/" component={CoreLayout} onEnter={() => onPageEnter(store)}>
     <Route path="login" component={Login} />
     <Route path="signup" component={Signup} />
     <Route path="lobby/:roomid" component={GameLobbyContainer} onEnter={(nextRouterState) => onGameLobbyEnter(nextRouterState, store)} />
-    <Route path="profile/:username" component={Profile} />
+    <Route path="profile/:username" component={Profile} onEnter={(nextRouterState) => onProfileEnter(nextRouterState, store)}/>
     <Route path="invite" component={InvitePage} />
     <Route path="about" component={About} />
     <Route path="code_editor" component={CodeEditor} />
@@ -65,6 +72,7 @@ export const createRoutes = (store) => (
     <Route path="joinGame/:invId" onEnter={onJoinEnter} component={BattlePage} />
     <Route path ="gameWon" component={GameWonPage} />
     <Route path ="gameFinished" component={GameFinishedPage} />
+    <Route path ="report-a-bug" component={ReportABug} />
     <IndexRoute component={Home} />
   </Route>
 )
